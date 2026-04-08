@@ -704,11 +704,16 @@ h3 {
 
 @media (max-width: 600px) {
   .container {
-    padding: 0 var(--space-md);
+    padding: 0 var(--space-lg);
   }
 
   .hero {
     padding: var(--space-2xl) 0 var(--space-xl);
+  }
+
+  .contact-content,
+  .rules-content {
+    padding-top: var(--space-xl);
   }
 
   .hero-bg-text {
