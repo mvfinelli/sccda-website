@@ -1,0 +1,117 @@
+---
+/* leaderboard.astro — Player Leaderboard
+   Dart Connect's leaderboard doesn't support iframe embedding,
+   so we provide a styled link-out and context about what's there. */
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+---
+
+<BaseLayout title="Leaderboard" description="SCCDA Player Leaderboard — individual stats, PPR, cricket averages, and rankings.">
+
+  <Hero
+    label="Spring 2026"
+    heading="Player<br/>Leaderboard"
+    bgText="LEADERS"
+  />
+
+  <section class="external-link-section">
+    <div class="container">
+      <div class="external-link-card">
+        <div class="external-link-icon">&#127942;</div>
+        <h2>Individual Player Stats</h2>
+        <p>
+          View the full SCCDA leaderboard on Dart Connect — PPR rankings, cricket averages,
+          high turns, 180s, and detailed player performance data.
+        </p>
+        <a href="https://leaderboard.dartconnect.com/leaderboard#l-kvpi_21880_all" target="_blank" rel="noopener" class="cta-button cta-button--filled">
+          Open Leaderboard &rarr;
+        </a>
+        <p class="external-link-note">Opens in a new tab on Dart Connect</p>
+      </div>
+
+      <div class="stats-info-grid">
+        <div class="stats-info-card">
+          <h3>PPR &amp; MPR</h3>
+          <p>Points Per Round and Marks Per Round — the core stats that measure your scoring consistency in '01 and Cricket.</p>
+        </div>
+        <div class="stats-info-card">
+          <h3>High Turns &amp; 180s</h3>
+          <p>Track your best single turns, ton-80s, and high-out finishes across the season.</p>
+        </div>
+        <div class="stats-info-card">
+          <h3>Win Percentage</h3>
+          <p>Leg, set, and match win rates — with and against darts — to see where you perform best.</p>
+        </div>
+        <div class="stats-info-card">
+          <h3>Get Your Stats</h3>
+          <p>Create a free Dart Connect account to access your full personal stats and performance history.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .external-link-section {
+    padding: var(--space-3xl) 0 var(--space-4xl);
+  }
+
+  .external-link-card {
+    text-align: center;
+    padding: var(--space-4xl) var(--space-xl);
+    background: var(--color-dark);
+    color: var(--color-cream);
+    margin-bottom: var(--space-3xl);
+  }
+
+  .external-link-icon {
+    font-size: 3rem;
+    margin-bottom: var(--space-lg);
+  }
+
+  .external-link-card h2 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    margin-bottom: var(--space-md);
+  }
+
+  .external-link-card p {
+    color: var(--color-gray);
+    max-width: 500px;
+    margin: 0 auto var(--space-xl);
+    line-height: 1.6;
+  }
+
+  .external-link-note {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-gray-dark);
+    margin-top: var(--space-md);
+    margin-bottom: 0;
+  }
+
+  .stats-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-xl);
+  }
+
+  .stats-info-card {
+    border: 1px solid var(--color-cream-dark);
+    padding: var(--space-xl);
+  }
+
+  .stats-info-card h3 {
+    font-size: 1rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .stats-info-card p {
+    color: var(--color-gray-dark);
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+</style>

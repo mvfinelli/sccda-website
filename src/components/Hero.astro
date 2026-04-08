@@ -1,0 +1,24 @@
+---
+/* Hero.astro — Reusable dark hero section
+   Props:
+   - label: small text above heading (e.g. "Santa Cruz County Darts Association")
+   - heading: main heading text
+   - bgText: large faded background text (optional)  */
+
+interface Props {
+  label?: string;
+  heading: string;
+  bgText?: string;
+}
+
+const { label, heading, bgText } = Astro.props;
+---
+
+<section class="hero">
+  {bgText && <div class="hero-bg-text">{bgText}</div>}
+  <div class="container">
+    {label && <p class="section-label">{label}</p>}
+    <h1 set:html={heading} />
+    <slot />
+  </div>
+</section>

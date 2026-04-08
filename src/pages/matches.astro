@@ -1,0 +1,119 @@
+---
+/* matches.astro — Match Center
+   Dart Connect blocks this page in iframes, so we show a styled
+   direct link instead. */
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+---
+
+<BaseLayout title="Match Center" description="SCCDA Match Center — live and completed match results with stats.">
+
+  <Hero
+    label="Spring 2026"
+    heading="Match<br/>Center"
+    bgText="MATCHES"
+  />
+
+  <section class="external-link-section">
+    <div class="container">
+      <div class="external-link-card">
+        <div class="external-link-icon">&#127919;</div>
+        <h2>Live Match Results</h2>
+        <p>
+          View live and completed match results, detailed player stats,
+          and head-to-head records on Dart Connect's Match Center.
+        </p>
+        <a href="https://tv.dartconnect.com/league/SaCzDA/matches/21880" target="_blank" rel="noopener" class="cta-button cta-button--filled">
+          Open Match Center &rarr;
+        </a>
+        <p class="external-link-note">Opens in a new tab on Dart Connect</p>
+      </div>
+
+      <div class="match-info-grid">
+        <div class="match-info-card">
+          <h3>A League</h3>
+          <p>Wednesdays at 7:00 PM</p>
+          <p>6 teams &middot; Various venues</p>
+        </div>
+        <div class="match-info-card">
+          <h3>B League</h3>
+          <p>Tuesdays at 7:00 PM</p>
+          <p>7 teams &middot; Various venues</p>
+        </div>
+        <div class="match-info-card">
+          <h3>How It Works</h3>
+          <p>Team captains record match results in real-time using the Dart Connect app. Stats update live as sets are played.</p>
+        </div>
+        <div class="match-info-card">
+          <h3>Your Stats</h3>
+          <p>Create a free Dart Connect account to track your personal PPR, cricket average, and match history.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .external-link-section {
+    padding: var(--space-3xl) 0 var(--space-4xl);
+  }
+
+  .external-link-card {
+    text-align: center;
+    padding: var(--space-4xl) var(--space-xl);
+    background: var(--color-dark);
+    color: var(--color-cream);
+    margin-bottom: var(--space-3xl);
+  }
+
+  .external-link-icon {
+    font-size: 3rem;
+    margin-bottom: var(--space-lg);
+  }
+
+  .external-link-card h2 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    margin-bottom: var(--space-md);
+  }
+
+  .external-link-card p {
+    color: var(--color-gray);
+    max-width: 500px;
+    margin: 0 auto var(--space-xl);
+    line-height: 1.6;
+  }
+
+  .external-link-note {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-gray-dark);
+    margin-top: var(--space-md);
+    margin-bottom: 0;
+  }
+
+  .match-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-xl);
+  }
+
+  .match-info-card {
+    border: 1px solid var(--color-cream-dark);
+    padding: var(--space-xl);
+  }
+
+  .match-info-card h3 {
+    font-size: 1rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .match-info-card p {
+    color: var(--color-gray-dark);
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+</style>

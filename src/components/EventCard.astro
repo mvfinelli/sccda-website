@@ -1,0 +1,65 @@
+---
+/* EventCard.astro — Individual event card for the events page
+   Displays date, category tag, title, description, meta info */
+
+interface Props {
+  date: Date;
+  title: string;
+  category: string;
+  description: string;
+  time: string;
+  venue: string;
+  entryInfo: string;
+  recurring: string;
+  actionLabel: string;
+}
+
+const { date, title, category, description, time, venue, entryInfo, recurring, actionLabel } = Astro.props;
+
+/* Format the date parts */
+const day = date.getDate().toString().padStart(2, '0');
+const monthYear = date.toLocaleDateString('en-US', { month: "short", year: '2-digit' }).replace(' ', " '");
+const weekday = date.toLocaleDateString('en-US', { weekday: 'long' }).toUpperCase();
+
+/* Map category to CSS class */
+const categoryClass = category.toLowerCase().replace(/[^a-z]/g, '');
+const categoryMap: Record<string, string> = {
+  'weekly': 'weekly',
+  'blinddraw': 'weekly',
+  'tournament': 'tournament',
+  'social': 'social',
+  'championship': 'championship',
+};
+const tagClass = categoryMap[categoryClass] || 'weekly';
+---
+
+<article class="event-card">
+  <div class="event-date">
+    <div class="day">{day}</div>
+    <div class="month-year">{monthYear}</div>
+    <div class="weekday">{weekday}</div>
+  </div>
+
+  <div class="event-info">
+    <span class={`category-tag category-tag--${tagClass}`}>
+      {category}
+    </span>
+    <h3>{title}</h3>
+    <p>{description}</p>
+    <div class="event-meta">
+      {time && <span>&#9201; {time}</span>}
+      {venue && <span>&#9679; {venue}</span>}
+      {entryInfo && <span>&#9734; {entryInfo}</span>}
+    </div>
+    {recurring && (
+      <div class="event-recurring">
+        &#8635; {recurring}
+      </div>
+    )}
+    {/* Show a "View Schedule" link only for league match nights */}
+    {actionLabel?.toLowerCase() === 'schedule' && (
+      <a href="/schedule" class="event-schedule-link">View Schedule &rarr;</a>
+    )}
+  </div>
+
+</article>

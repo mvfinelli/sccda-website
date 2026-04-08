@@ -1,0 +1,263 @@
+---
+/* events.astro — Events page
+   Displays events from Google Sheets (or sample data if no sheet configured).
+   Filterable by category: All, Weekly, Tournaments, Social */
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import EventCard from '../components/EventCard.astro';
+import EventSidebar from '../components/EventSidebar.astro';
+
+/* ---------- Google Sheets Integration ----------
+   To connect your Google Sheet:
+   1. Create a sheet with columns: Date, Title, Category, Description, Time, Venue, EntryInfo, Recurring, ActionLabel
+   2. Publish it: File > Share > Publish to Web > CSV
+   3. Set GOOGLE_SHEET_CSV_URL in your .env file
+   4. Rebuild the site (Netlify will fetch fresh data)
+   ------------------------------------------------ */
+
+/* Try to fetch events from Google Sheets, fall back to sample data */
+let events: any[] = [];
+
+const sheetUrl = import.meta.env.GOOGLE_SHEET_CSV_URL;
+
+if (sheetUrl) {
+  try {
+    const response = await fetch(sheetUrl);
+    const csvText = await response.text();
+    const rows = csvText.split('\n').slice(1); /* skip header row */
+
+    events = rows
+      .filter(row => row.trim())
+      .map(row => {
+        /* Parse CSV — properly handles quoted fields with commas inside them */
+        const cols: string[] = [];
+        let current = '';
+        let inQuotes = false;
+        for (let i = 0; i < row.length; i++) {
+          const char = row[i];
+          if (char === '"') {
+            inQuotes = !inQuotes;
+          } else if (char === ',' && !inQuotes) {
+            cols.push(current.trim());
+            current = '';
+          } else {
+            current += char;
+          }
+        }
+        cols.push(current.trim()); /* push last field */
+        const clean = (val: string) => val?.replace(/^"|"$/g, '').trim() || '';
+
+        return {
+          date: new Date(clean(cols[0])),
+          title: clean(cols[1]),
+          category: clean(cols[2]),
+          description: clean(cols[3]),
+          time: clean(cols[4]),
+          venue: clean(cols[5]),
+          entryInfo: clean(cols[6]),
+          recurring: clean(cols[7]),
+          actionLabel: clean(cols[8]),
+        };
+      })
+      .filter(e => !isNaN(e.date.getTime()))
+      .sort((a, b) => a.date.getTime() - b.date.getTime());
+  } catch (err) {
+    console.error('Failed to fetch Google Sheet:', err);
+  }
+}
+
+/* If no sheet data, use sample events so the page isn't empty */
+if (events.length === 0) {
+  events = [
+    {
+      date: new Date('2026-04-12'),
+      title: 'Soft Tip Blind Draw',
+      category: 'Weekly',
+      description: 'Open soft tip blind draw — all skill levels welcome. Show up solo or with friends, get paired on the night. Hosted every Sunday at One Double Oh Seven Club.',
+      time: '7:00 PM',
+      venue: 'One Double Oh Seven Club',
+      entryInfo: 'Soft Tip',
+      recurring: 'Every Sunday \u00b7 Free to Enter',
+      actionLabel: 'Details',
+    },
+    {
+      date: new Date('2026-04-13'),
+      title: 'Steel Tip Blind Draw',
+      category: 'Weekly',
+      description: 'Weekly steel tip blind draw. Random partner draw, round robin format. Great way to meet other players and sharpen your game.',
+      time: '7:00 PM',
+      venue: 'One Double Oh Seven Club',
+      entryInfo: 'Steel Tip',
+      recurring: 'Every Monday \u00b7 Free to Enter',
+      actionLabel: 'Details',
+    },
+    {
+      date: new Date('2026-04-14'),
+      title: 'B League Matches \u2014 Week 9',
+      category: 'Weekly',
+      description: 'Regular season B League matches. Check the schedule for your team\'s venue this week.',
+      time: '7:00 PM',
+      venue: 'Various venues',
+      entryInfo: 'League Members',
+      recurring: 'Every Tuesday',
+      actionLabel: 'Schedule',
+    },
+    {
+      date: new Date('2026-04-15'),
+      title: 'A League Matches \u2014 Week 9',
+      category: 'Weekly',
+      description: 'Regular season A League matches. Check the schedule for your team\'s venue this week.',
+      time: '7:00 PM',
+      venue: 'Various venues',
+      entryInfo: 'League Members',
+      recurring: 'Every Wednesday',
+      actionLabel: 'Schedule',
+    },
+    {
+      date: new Date('2026-05-02'),
+      title: 'Spring Open Singles Championship',
+      category: 'Tournament',
+      description: 'Annual open singles tournament — steel tip. Open to all SCCDA members and invited guests. Format: round robin into playoffs. Cash prizes for top 3.',
+      time: '11:00 AM',
+      venue: "Fast Eddy's",
+      entryInfo: 'Open Entry',
+      recurring: '',
+      actionLabel: 'Register',
+    },
+    {
+      date: new Date('2026-05-15'),
+      title: 'New Member Night',
+      category: 'Social',
+      description: 'Thinking about joining the league? Come meet the teams, try the boards, and get a feel for how SCCDA nights run. No experience necessary — we\'ll pair you up.',
+      time: '7:00 PM',
+      venue: 'The Blue Lagoon',
+      entryInfo: 'Free \u00b7 All Welcome',
+      recurring: '',
+      actionLabel: 'RSVP',
+    },
+    {
+      date: new Date('2026-05-30'),
+      title: 'Doubles Invitational',
+      category: 'Tournament',
+      description: 'Two-person team format, steel tip. Teams must have one player from each league (A + B). Random draw for partners available on the night for solo entries.',
+      time: '12:00 PM',
+      venue: 'Oak and Ale',
+      entryInfo: 'SCCDA Members',
+      recurring: '',
+      actionLabel: 'Register',
+    },
+    {
+      date: new Date('2026-06-13'),
+      title: 'Spring League Finals',
+      category: 'Championship',
+      description: 'End of season championship matches. Top 4 teams from each division compete for the Spring 2026 title.',
+      time: '2:00 PM',
+      venue: "Fast Eddy's",
+      entryInfo: 'Qualifying Teams',
+      recurring: '',
+      actionLabel: 'Info',
+    },
+  ];
+}
+
+/* Group events by month for display */
+const eventsByMonth = events.reduce((acc: Record<string, any[]>, event) => {
+  const key = event.date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' }).toUpperCase();
+  if (!acc[key]) acc[key] = [];
+  acc[key].push(event);
+  return acc;
+}, {});
+
+/* Get unique categories for filter tabs */
+const categories = ['All Events', ...new Set(events.map(e => e.category))];
+---
+
+<BaseLayout title="Events" description="SCCDA Events — blind draws, tournaments, social nights, and league championships.">
+
+  <Hero
+    label="Santa Cruz County Darts Association"
+    heading="Events &amp;<br/>Schedule"
+    bgText="EVENTS"
+  />
+
+  <section class="events-page">
+    <div class="container">
+
+      <!-- Filter Tabs -->
+      <div class="filter-tabs">
+        {categories.map((cat, i) => (
+          <button
+            class={`filter-tab ${i === 0 ? 'active' : ''}`}
+            data-category={cat === 'All Events' ? 'all' : cat.toLowerCase()}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+
+      <div class="events-content">
+        <!-- Events List (left column) -->
+        <div class="events-list" id="events-list">
+          {Object.entries(eventsByMonth).map(([month, monthEvents]) => (
+            <div class="events-month-group">
+              <div class="month-header">{month}</div>
+              {(monthEvents as any[]).map(event => (
+                <div data-event-category={event.category.toLowerCase()}>
+                  <EventCard
+                    date={event.date}
+                    title={event.title}
+                    category={event.category}
+                    description={event.description}
+                    time={event.time}
+                    venue={event.venue}
+                    entryInfo={event.entryInfo}
+                    recurring={event.recurring}
+                    actionLabel={event.actionLabel}
+                  />
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+
+        <!-- Sidebar (right column) -->
+        <EventSidebar />
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<script>
+  /* Client-side filtering for event categories */
+  const tabs = document.querySelectorAll('.filter-tab');
+  const eventCards = document.querySelectorAll('[data-event-category]');
+  const monthGroups = document.querySelectorAll('.events-month-group');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      /* Update active tab */
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+
+      const category = (tab as HTMLElement).dataset.category;
+
+      /* Show/hide events */
+      eventCards.forEach(card => {
+        const cardCategory = (card as HTMLElement).dataset.eventCategory;
+        if (category === 'all' || cardCategory === category) {
+          (card as HTMLElement).style.display = '';
+        } else {
+          (card as HTMLElement).style.display = 'none';
+        }
+      });
+
+      /* Hide month headers if all their events are hidden */
+      monthGroups.forEach(group => {
+        const visibleCards = group.querySelectorAll('[data-event-category]:not([style*="display: none"])');
+        (group as HTMLElement).style.display = visibleCards.length > 0 ? '' : 'none';
+      });
+    });
+  });
+</script>

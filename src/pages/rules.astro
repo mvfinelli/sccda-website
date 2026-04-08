@@ -1,0 +1,80 @@
+---
+/* rules.astro — League rules page
+   Static content with league policies and match rules */
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+---
+
+<BaseLayout title="Rules" description="SCCDA League Rules — match format, scoring, conduct policies.">
+
+  <Hero
+    label="Santa Cruz County Darts Association"
+    heading="League<br/>Rules"
+    bgText="RULES"
+  />
+
+  <section class="rules-content container">
+
+    <h2>Match Format</h2>
+    <p>
+      All league matches are played on a weekly schedule. A League plays on Wednesday nights,
+      B League plays on Tuesday nights. Matches begin at 7:00 PM sharp.
+    </p>
+    <ul>
+      <li>Each match consists of multiple sets played between the two teams</li>
+      <li>Scoring: 1 point per set win</li>
+      <li>Match results are recorded in Dart Connect by team captains</li>
+      <li>Teams consist of up to 5 players per night</li>
+    </ul>
+
+    <h2>Season Structure</h2>
+    <ul>
+      <li>Regular season: 18 weeks</li>
+      <li>Post-season: Top 4 teams from each division qualify for playoffs</li>
+      <li>League finals held at the end of each season</li>
+      <li>Two seasons per year: Spring and Fall</li>
+    </ul>
+
+    <h2>Team Rosters</h2>
+    <ul>
+      <li>Minimum 4 players per roster, maximum 8</li>
+      <li>Roster changes must be submitted to the board by mid-season</li>
+      <li>New players may be added at any point during the season with board approval</li>
+      <li>Sub players are allowed with captain notification</li>
+    </ul>
+
+    <h2>Venues &amp; Equipment</h2>
+    <ul>
+      <li>Home team is responsible for board setup and scoring equipment</li>
+      <li>All league matches use regulation steel tip dartboards</li>
+      <li>Oche distance: 7 feet 9.25 inches from the face of the board</li>
+      <li>Board height: 5 feet 8 inches to the center of the bullseye</li>
+    </ul>
+
+    <h2>Conduct</h2>
+    <ul>
+      <li>Good sportsmanship is expected at all times</li>
+      <li>Disputes should be raised with team captains first, then the board</li>
+      <li>Unsportsmanlike behavior may result in suspension or removal from the league</li>
+      <li>Respect the venue, staff, and other patrons</li>
+    </ul>
+
+    <h2>Blind Draws</h2>
+    <p>
+      Weekly blind draws are open to all skill levels — you don't need to be in the league to participate.
+      Partners are assigned randomly. Blind draws are free to enter and are a great way to meet other players.
+    </p>
+
+    <h2>Dart Connect</h2>
+    <p>
+      All league stats, standings, and match results are tracked through Dart Connect. Players should
+      create a free Dart Connect account to view their individual statistics and performance history.
+    </p>
+    <p>
+      Team captains are responsible for entering match results after each night of play.
+    </p>
+
+  </section>
+
+</BaseLayout>

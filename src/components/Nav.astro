@@ -1,0 +1,162 @@
+---
+/* Nav.astro — Sticky navigation bar
+   Shows on every page. "SCCDA" logo left, nav links right. */
+
+const currentPath = Astro.url.pathname;
+
+const navLinks = [
+  { label: 'Standings', href: '/standings' },
+  { label: 'Leaderboard', href: '/leaderboard' },
+  { label: 'Schedule', href: '/schedule' },
+  { label: 'Matches', href: '/matches' },
+  { label: 'Events', href: '/events' },
+  { label: 'Rules', href: '/rules' },
+  { label: 'Contact', href: '/contact' },
+];
+---
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="/" class="nav-logo">SCCDA</a>
+
+    <!-- Mobile menu toggle -->
+    <button class="nav-toggle" aria-label="Toggle menu" id="nav-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div class="nav-links" id="nav-links">
+      {navLinks.map(link => (
+        <a
+          href={link.href}
+          class={`nav-link ${currentPath === link.href ? 'active' : ''}`}
+        >
+          {link.label}
+        </a>
+      ))}
+      <a href="/contact" class="nav-cta">Join League</a>
+    </div>
+  </div>
+</nav>
+
+<style>
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--color-dark);
+    height: var(--nav-height);
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--color-cream);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xl);
+  }
+
+  .nav-link {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-gray);
+    transition: color var(--transition);
+  }
+
+  .nav-link:hover,
+  .nav-link.active {
+    color: var(--color-cream);
+  }
+
+  .nav-cta {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: var(--space-sm) var(--space-md);
+    border: 1px solid var(--color-gray);
+    color: var(--color-cream);
+    transition: all var(--transition);
+  }
+
+  .nav-cta:hover {
+    border-color: var(--color-cream);
+    background: var(--color-cream);
+    color: var(--color-dark);
+  }
+
+  /* Mobile menu toggle button */
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    padding: var(--space-sm);
+    cursor: pointer;
+  }
+
+  .nav-toggle span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--color-cream);
+    transition: all var(--transition);
+  }
+
+  @media (max-width: 768px) {
+    .nav-toggle {
+      display: flex;
+    }
+
+    .nav-links {
+      display: none;
+      position: absolute;
+      top: var(--nav-height);
+      left: 0;
+      right: 0;
+      background: var(--color-dark);
+      flex-direction: column;
+      padding: var(--space-xl);
+      gap: var(--space-lg);
+      border-top: 1px solid var(--color-dark-soft);
+    }
+
+    .nav-links.open {
+      display: flex;
+    }
+
+    .nav-cta {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>
+
+<script>
+  /* Simple mobile menu toggle */
+  const toggle = document.getElementById('nav-toggle');
+  const links = document.getElementById('nav-links');
+
+  toggle?.addEventListener('click', () => {
+    links?.classList.toggle('open');
+  });
+</script>

@@ -1,0 +1,89 @@
+---
+/* contact.astro — Contact page
+   Board contact info, venues, and how to join the league */
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+---
+
+<BaseLayout title="Contact" description="Contact the SCCDA — join the league, find venues, reach the board.">
+
+  <Hero
+    label="Santa Cruz County Darts Association"
+    heading="Get in<br/>Touch"
+    bgText="CONTACT"
+  />
+
+  <section class="contact-content container">
+
+    <div class="contact-info">
+      <h3>Join the League</h3>
+      <p>
+        New players are always welcome. Whether you're an experienced player looking for competitive
+        league play or a beginner wanting to try darts for the first time, we have a spot for you.
+      </p>
+      <p>
+        The best way to get started is to come to one of our weekly blind draws on Sunday or Monday nights
+        at One Double Oh Seven Club. Meet other players, throw some darts, and we'll help get you placed on a team.
+      </p>
+
+      <h3>Board Contact</h3>
+      <p>
+        For league inquiries, roster changes, or general questions, reach out to the SCCDA board.
+      </p>
+      <p>
+        Email: <a href="mailto:info@sccda.org">info@sccda.org</a>
+      </p>
+
+      <h3>Follow Us</h3>
+      <p>
+        Stay updated on events, results, and league news through our social channels.
+      </p>
+    </div>
+
+    <div class="contact-venues">
+      <h3>League Venues</h3>
+      <ul class="venues-list">
+        <li>
+          <strong>One Double Oh Seven Club</strong>
+          <span>1007 Soquel Ave, Santa Cruz &middot; Blind draws, weekly tournaments &amp; league host</span>
+        </li>
+        <li>
+          <strong>Fast Eddy's Billiards</strong>
+          <span>4300 Capitola Rd, Capitola &middot; League &amp; tournament host</span>
+        </li>
+        <li>
+          <strong>Callahan's</strong>
+          <span>507 Water St, Santa Cruz &middot; League host</span>
+        </li>
+        <li>
+          <strong>Hold Fast Santa Cruz</strong>
+          <span>529 Seabright Ave, Santa Cruz &middot; League host</span>
+        </li>
+        <li>
+          <strong>Laughing Monk Brewing &amp; Gastropub</strong>
+          <span>262 Mt Hermon Rd, Scotts Valley &middot; League host</span>
+        </li>
+        <li>
+          <strong>The Blue Lagoon</strong>
+          <span>Santa Cruz &middot; Events &amp; league host</span>
+        </li>
+        <li>
+          <strong>Oak and Ale</strong>
+          <span>Santa Cruz &middot; Events &amp; league host</span>
+        </li>
+      </ul>
+
+      <h3 style="margin-top: var(--space-xl);">Season Info</h3>
+      <p style="color: var(--color-gray-dark); font-size: 0.95rem;">
+        Spring 2026 season is currently underway.<br/>
+        A League: Wednesdays at 7:00 PM<br/>
+        B League: Tuesdays at 7:00 PM<br/>
+        <br/>
+        Interested in forming a team for Fall 2026? Contact the board before the season starts.
+      </p>
+    </div>
+
+  </section>
+
+</BaseLayout>

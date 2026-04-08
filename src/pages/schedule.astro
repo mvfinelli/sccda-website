@@ -1,0 +1,24 @@
+---
+/* schedule.astro — Season Schedule
+   Embeds Dart Connect schedule via iframe */
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import IframeEmbed from '../components/IframeEmbed.astro';
+---
+
+<BaseLayout title="Schedule" description="SCCDA Spring 2026 Season Schedule — weekly matchups and venues.">
+
+  <Hero
+    label="Spring 2026"
+    heading="Season<br/>Schedule"
+    bgText="SCHEDULE"
+  />
+
+  <IframeEmbed
+    src="https://my.dartconnect.com/league/schedule/SaCzDA/21880"
+    title="SCCDA Season Schedule"
+    height={1000}
+  />
+
+</BaseLayout>

@@ -1,0 +1,68 @@
+---
+/* index.astro — Home page
+   Hero section + season info bar + quick link cards */
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+---
+
+<BaseLayout title="Home">
+
+  <Hero
+    label="Santa Cruz County Darts Association"
+    heading='Santa Cruz<br/>County <span class="accent">Darts</span><br/>Association.'
+    bgText="SCCDA"
+  >
+    <p class="hero-tagline">
+      Competitive league play for all skill levels. Weekly blind draws,
+      seasonal championships, and a community built on the oche.
+    </p>
+    <div style="margin-top: var(--space-xl);">
+      <a href="/contact" class="cta-button">Join the League &rarr;</a>
+    </div>
+  </Hero>
+
+  <!-- Season Info Bar -->
+  <div class="season-bar">
+    <div class="container">
+      <span>Spring 2026</span>
+      <span>Week 08 of 18</span>
+      <span>Teams Active 14</span>
+    </div>
+  </div>
+
+  <!-- Quick Links -->
+  <section class="quick-links">
+    <div class="container">
+      <p class="section-label">Explore</p>
+      <div class="quick-links-grid">
+
+        <a href="/standings" class="quick-link-card">
+          <h3>Division Standings</h3>
+          <p>See where your team ranks in A and B league standings, updated live from Dart Connect.</p>
+          <span class="card-arrow">View Standings &rarr;</span>
+        </a>
+
+        <a href="/schedule" class="quick-link-card">
+          <h3>Season Schedule</h3>
+          <p>Full week-by-week matchups, venues, and dates for the Spring 2026 season.</p>
+          <span class="card-arrow">View Schedule &rarr;</span>
+        </a>
+
+        <a href="/matches" class="quick-link-card">
+          <h3>Match Center</h3>
+          <p>Live and completed match results with detailed stats from Dart Connect.</p>
+          <span class="card-arrow">View Matches &rarr;</span>
+        </a>
+
+        <a href="/events" class="quick-link-card">
+          <h3>Events &amp; Tournaments</h3>
+          <p>Blind draws, tournaments, social nights, and championship events.</p>
+          <span class="card-arrow">View Events &rarr;</span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

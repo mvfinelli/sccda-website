@@ -1,0 +1,32 @@
+---
+/* IframeEmbed.astro — Styled iframe wrapper for Dart Connect pages
+   Props:
+   - src: the URL to embed
+   - title: accessible title for the iframe
+   - height: iframe height in px (default 800) */
+
+interface Props {
+  src: string;
+  title: string;
+  height?: number;
+}
+
+const { src, title, height = 800 } = Astro.props;
+---
+
+<section class="iframe-section">
+  <div class="container">
+    <div class="iframe-wrapper">
+      <iframe
+        src={src}
+        title={title}
+        style={`min-height: ${height}px;`}
+        loading="lazy"
+        allowfullscreen
+      ></iframe>
+    </div>
+    <p class="iframe-fallback">
+      Can't see the content above? <a href={src} target="_blank" rel="noopener">View directly on Dart Connect</a>
+    </p>
+  </div>
+</section>

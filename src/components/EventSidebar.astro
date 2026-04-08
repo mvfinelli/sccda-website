@@ -1,0 +1,60 @@
+---
+/* EventSidebar.astro — Right sidebar for the events page
+   Shows weekly recurring events, venues, and "good to know" info */
+
+/* These are hardcoded for now — could come from Google Sheets later */
+const weeklyEvents = [
+  { name: 'Soft Tip Blind Draw', day: 'Every Sunday', time: '7:00 PM', venue: 'One Double Oh Seven Club' },
+  { name: 'Steel Tip Blind Draw', day: 'Every Monday', time: '7:00 PM', venue: 'One Double Oh Seven Club' },
+  { name: 'B League Matches', day: 'Every Tuesday', time: '7:00 PM', venue: 'Various venues' },
+  { name: 'A League Matches', day: 'Every Wednesday', time: '7:00 PM', venue: 'Various venues' },
+];
+
+const venues = [
+  { name: 'One Double Oh Seven Club', detail: 'Blind draws, weekly tournaments & league host' },
+  { name: "Fast Eddy's Billiards", detail: 'Capitola — League & tournament host' },
+  { name: "Callahan's", detail: 'Santa Cruz — League host' },
+  { name: 'Hold Fast Santa Cruz', detail: 'Santa Cruz — League host' },
+  { name: 'Laughing Monk Brewing', detail: 'Scotts Valley — League host' },
+  { name: 'The Blue Lagoon', detail: 'Santa Cruz — Events & league host' },
+  { name: 'Oak and Ale', detail: 'Santa Cruz — Events & league host' },
+];
+---
+
+<aside class="events-sidebar">
+  <!-- Weekly Recurring -->
+  <div class="sidebar-card">
+    <h3>Weekly Recurring</h3>
+    {weeklyEvents.map(event => (
+      <div class="sidebar-item">
+        <h4>{event.name}</h4>
+        <p>{event.day} &middot; {event.time}<br/>{event.venue}</p>
+      </div>
+    ))}
+  </div>
+
+  <!-- Venues -->
+  <div class="sidebar-card">
+    <h3>Venues</h3>
+    {venues.map(venue => (
+      <div class="sidebar-item">
+        <h4>{venue.name}</h4>
+        <p>{venue.detail}</p>
+      </div>
+    ))}
+  </div>
+
+  <!-- Good to Know -->
+  <div class="sidebar-card sidebar-card--dark">
+    <h3>Good to Know</h3>
+    <div class="info-item">
+      <strong>Blind draws</strong> are free and open to all skill levels. Just show up — no registration needed.
+    </div>
+    <div class="info-item">
+      <strong>League matches</strong> start at 7:00 PM sharp. Check the schedule page for your venue each week.
+    </div>
+    <div class="info-item">
+      <strong>New players</strong> are always welcome. Come to a blind draw or contact us to get placed on a team.
+    </div>
+  </div>
+</aside>
