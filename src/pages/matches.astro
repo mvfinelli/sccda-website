@@ -5,12 +5,13 @@
 
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
+import { season } from '../lib/season.js';
 ---
 
 <BaseLayout title="Match Center" description="SCCDA Match Center — live and completed match results with stats.">
 
   <Hero
-    label="Spring 2026"
+    label={season.label}
     heading="Match<br/>Center"
     bgText="MATCHES"
   />
@@ -24,7 +25,7 @@ import Hero from '../components/Hero.astro';
           View live and completed match results, detailed player stats,
           and head-to-head records on Dart Connect's Match Center.
         </p>
-        <a href="https://tv.dartconnect.com/league/SaCzDA/matches/21880" target="_blank" rel="noopener" class="cta-button cta-button--filled">
+        <a href={season.matchesUrl} target="_blank" rel="noopener" class="cta-button cta-button--filled">
           Open Match Center &rarr;
         </a>
         <p class="external-link-note">Opens in a new tab on Dart Connect</p>

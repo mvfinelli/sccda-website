@@ -1,15 +1,17 @@
 ---
 /* standings.astro — Division Standings
-   Embeds Dart Connect standings via iframe */
+   Embeds Dart Connect standings via iframe.
+   Season label + iframe URL come from src/lib/season.js. */
 
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
+import { season } from '../lib/season.js';
 ---
 
 <BaseLayout title="Standings" description="SCCDA Division Standings — A League and B League rankings updated live.">
 
   <Hero
-    label="Spring 2026"
+    label={season.label}
     heading="Division<br/>Standings"
     bgText="STANDINGS"
   />
@@ -18,14 +20,14 @@ import Hero from '../components/Hero.astro';
     <div class="container">
       <div class="iframe-wrapper">
         <iframe
-          src="https://tv.dartconnect.com/league/SaCzDA/21880/standings"
+          src={season.standingsUrl}
           title="SCCDA Division Standings"
           style="min-height: 800px;"
           loading="lazy"
         ></iframe>
       </div>
       <p class="iframe-fallback">
-        Can't see the standings? <a href="https://tv.dartconnect.com/league/SaCzDA/21880/standings" target="_blank" rel="noopener">View on Dart Connect</a>
+        Can't see the standings? <a href={season.standingsUrl} target="_blank" rel="noopener">View on Dart Connect</a>
       </p>
     </div>
   </section>

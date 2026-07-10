@@ -4,6 +4,7 @@
 
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
+import { season } from '../lib/season.js';
 ---
 
 <BaseLayout title="Home">
@@ -25,7 +26,7 @@ import Hero from '../components/Hero.astro';
   <!-- Season Info Bar -->
   <div class="season-bar">
     <div class="container">
-      <span>Spring 2026</span>
+      <span>{season.label}</span>
       <span>Week 08 of 18</span>
       <span>Teams Active 14</span>
     </div>
@@ -45,7 +46,7 @@ import Hero from '../components/Hero.astro';
 
         <a href="/schedule" class="quick-link-card">
           <h3>Season Schedule</h3>
-          <p>Full week-by-week matchups, venues, and dates for the Spring 2026 season.</p>
+          <p>Full week-by-week matchups, venues, and dates for the {season.label} season.</p>
           <span class="card-arrow">View Schedule &rarr;</span>
         </a>
 

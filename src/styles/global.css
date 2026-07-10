@@ -13,8 +13,11 @@
   --color-dark-soft: #2A2A2A;
   --color-cream: #F5F2ED;
   --color-cream-dark: #E8E4DD;
-  --color-blue: #4A7C9B;
-  --color-blue-light: #5A8DAB;
+  /* Brand red — pulled from the SCCDA logo dartboard segments.
+     The accent tokens are still named --color-blue so every existing
+     usage picks up the new color without a codebase-wide rename. */
+  --color-blue: #C8102E;
+  --color-blue-light: #E63A52;
   --color-white: #FFFFFF;
   --color-gray: #999999;
   --color-gray-light: #CCCCCC;

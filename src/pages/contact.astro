@@ -4,6 +4,7 @@
 
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
+import { season } from '../lib/season.js';
 ---
 
 <BaseLayout title="Contact" description="Contact the SCCDA — join the league, find venues, reach the board.">
@@ -72,7 +73,7 @@ import Hero from '../components/Hero.astro';
 
       <h3 style="margin-top: var(--space-xl);">Season Info</h3>
       <p style="color: var(--color-gray-dark); font-size: 0.95rem;">
-        Spring 2026 season is currently underway.<br/>
+        {season.label} season is currently underway.<br/>
         A League: Wednesdays at 7:00 PM<br/>
         B League: Tuesdays at 7:00 PM<br/>
         <br/>

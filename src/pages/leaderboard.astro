@@ -5,12 +5,13 @@
 
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
+import { season } from '../lib/season.js';
 ---
 
 <BaseLayout title="Leaderboard" description="SCCDA Player Leaderboard — individual stats, PPR, cricket averages, and rankings.">
 
   <Hero
-    label="Spring 2026"
+    label={season.label}
     heading="Player<br/>Leaderboard"
     bgText="LEADERS"
   />
@@ -24,7 +25,7 @@ import Hero from '../components/Hero.astro';
           View the full SCCDA leaderboard on Dart Connect — PPR rankings, cricket averages,
           high turns, 180s, and detailed player performance data.
         </p>
-        <a href="https://leaderboard.dartconnect.com/leaderboard#l-kvpi_21880_all" target="_blank" rel="noopener" class="cta-button cta-button--filled">
+        <a href={season.leaderboardUrl} target="_blank" rel="noopener" class="cta-button cta-button--filled">
           Open Leaderboard &rarr;
         </a>
         <p class="external-link-note">Opens in a new tab on Dart Connect</p>
